@@ -28,5 +28,5 @@ public class FileViewModel : ObservableObject, IDocumentViewModel
     {
         throw new NotImplementedException();
     }
-    static public void LoadDocument(ref FlowDocument document) { throw new NotImplementedException();}
+    public static void LoadDocument(ref FlowDocument document) { throw new NotImplementedException();}
 }
