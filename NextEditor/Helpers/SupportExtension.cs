@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace NextEditor.Utility;
+namespace NextEditor.Helpers;
 
 public static class SupportExtension
 {

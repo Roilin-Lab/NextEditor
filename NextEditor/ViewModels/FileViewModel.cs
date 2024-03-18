@@ -1,72 +1,32 @@
 ﻿using System.IO;
 using System.Windows.Documents;
+using NextEditor.Helpers;
 using NextEditor.Models;
 using NextEditor.Utility;
 
 namespace NextEditor.ViewModels;
 
-public class FileViewModel : BaseViewModel
+public class FileViewModel : ObservableObject, IDocumentViewModel
 {
-    private  string _name;
-	private readonly FileModel _file = new();
-    private FlowDocument _document = new();
-    private TextRange _textRange;
-    private bool _saved = false;
+    private FileModel _fileModel;
 
-    public string Name
-    {
-        get => _name;
-        set => SetField(ref _name, value);
-    }
+    public IDocument Document => _fileModel;
 
-    public bool Saved
-    {
-        get => _saved;
-        set => SetField(ref _saved, value);
-    }
-
-    public bool IsNew => _file.IsNew;
-
-    public FlowDocument Document
-    {
-        get => _document;
-        set => SetField(ref _document, value);
-    }
     public FileViewModel()
     {
-        _name = _file.Name;
-        _textRange = new TextRange(_document.ContentStart, _document.ContentEnd);
+        _fileModel = new FileModel();
     }
 
-    public FileViewModel(string path): this()
+    public FileViewModel(string path)
     {
-        _file = new FileModel(path);
-        OpenExisting();
+        var doc = new FlowDocument();
+        LoadDocument(ref doc);
+        _fileModel = new FileModel(path, doc);
     }
 
-    private void OpenExisting()
+    public void Save()
     {
-        using (var stream = _file.GetStream(FileMode.Open))
-        {
-            _textRange.Load(stream, SupportExtension.ConvertToDataFormats(_file.Format));
-        }
-
-        Saved = true;
+        throw new NotImplementedException();
     }
-
-    public void Save(string? path = null)
-    {
-        if (path != null) _file.UpdatePropertyFromPath(path);
-        
-        using (var stream = _file.GetStream(FileMode.Create, path))
-        {
-            _textRange.Save(stream, SupportExtension.ConvertToDataFormats(_file.Format));
-        }
-        Saved = true;
-    }
-
-    public void OnTextChanged()
-    {
-        Saved = false;
-    }
+    static public void LoadDocument(ref FlowDocument document) { throw new NotImplementedException();}
 }

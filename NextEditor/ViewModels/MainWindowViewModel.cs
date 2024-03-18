@@ -1,15 +1,14 @@
 ﻿using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows.Input;
-using NextEditor.Commands;
+using NextEditor.Helpers;
 using NextEditor.Utility;
 
 namespace NextEditor.ViewModels;
 
-public class MainWindowViewModel : BaseViewModel
+public class MainWindowViewModel : ObservableObject
 {
-    private readonly ObservableCollection<FileViewModel> _files = [];
-    private readonly FileDialogService _dialogService = new();
+    private readonly ObservableCollection<FileViewModel> _files;
     private FileViewModel _selectedFile;
 
     public ObservableCollection<FileViewModel> Files => _files;
@@ -21,65 +20,43 @@ public class MainWindowViewModel : BaseViewModel
 
     public MainWindowViewModel()
     {
-        CloseCommand = new RelayCommand(CloseFile);
-        CreateCommand = new RelayCommand(_ => CreateFile());
-        OpenCommand = new RelayCommand(_ => OpenFile());
-        SaveAsCommand = new RelayCommand(SaveAsFile);
-        SaveCommand = new RelayCommand(SaveFile);
-
-        CreateFile();
-        _selectedFile = _files[0];
+        _files = new ObservableCollection<FileViewModel>();
+        var startUpFile = new FileViewModel();
+        _files.Add(startUpFile);
+        _selectedFile = startUpFile;
     }
 
     public void CreateFile()
     {
-        FileViewModel file = new FileViewModel();
-        _files.Add(file);
-        SelectedFile = file;
+        throw new NotImplementedException();
     }
 
     public void OpenFile()
     {
-        if (_dialogService.ShowDialog(FileMode.Open, out var path) && path != null)
-        {
-            FileViewModel file = new FileViewModel(path);
-            _files.Add(file);
-            SelectedFile = file;
-        }
+        throw new NotImplementedException();
     }
 
     public void SaveAsFile(object parameter)
     {
-        if (_dialogService.ShowDialog(FileMode.Create, out var path) && path != null)
-        {
-            var file = (parameter as FileViewModel)!;
-            file.Save(path);
-        }
+        throw new NotImplementedException();
     }
 
     public void SaveFile(object parameter)
     {
-        var file = (parameter as FileViewModel)!;
-        if (file.IsNew)
-        {
-            SaveAsFile(file);
-        }
-        else
-        {
-            file.Save();
-        }
+        throw new NotImplementedException();
     }
 
     public void CloseFile(object parameter)
     {
+
         if (_files.Count == 1) CreateFile();
         _files.Remove((parameter as FileViewModel)!);
     }
 
-    public ICommand CreateCommand { get; }
-    public ICommand OpenCommand { get; }
-    public ICommand CloseCommand { get; }
-    public ICommand SaveAsCommand { get; }
-    public ICommand SaveCommand { get; }
+    public ICommand CreateCommand => new RelayCommand(_ => CreateFile());
+    public ICommand OpenCommand => new RelayCommand(_ => OpenFile());
+    public ICommand CloseCommand => new RelayCommand(CloseFile);
+    public ICommand SaveAsCommand => new RelayCommand(SaveAsFile);
+    public ICommand SaveCommand => new RelayCommand(SaveFile);
 
 }

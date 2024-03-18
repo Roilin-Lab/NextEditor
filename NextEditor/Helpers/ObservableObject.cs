@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace NextEditor.ViewModels;
+namespace NextEditor.Helpers;
 
-public class BaseViewModel : INotifyPropertyChanged
+public class ObservableObject : INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler? PropertyChanged;
 

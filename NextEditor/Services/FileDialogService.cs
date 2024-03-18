@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using Microsoft.Win32;
+using NextEditor.Helpers;
 
 namespace NextEditor.Utility;
 

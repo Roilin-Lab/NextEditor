@@ -1,43 +1,41 @@
-﻿using System.IO;
+﻿using NextEditor.Helpers;
+using System.IO;
+using System.Windows;
+using System.Windows.Documents;
 
 namespace NextEditor.Models;
 
-public class FileModel
+public class FileModel : ObservableObject, IDocument
 {
-    public string Name { get; set; }
-    public string Format { get; private set; }
+    private string _fileName;
+    private string _filePath;
+    private bool _isSaved;
+    private readonly string _extension;
+    private FlowDocument _document;
 
-    public bool IsNew => _path == null;
-
-    private string? _path;
-    private const string DefaultName = "Новый файл.txt";
-    private const string DefaultFormat = ".txt";
+    private const string DEFAULT_FILE_NAME = "New File";
+    private const string DEFAULT_DATA_EXTENSION = ".txt";
 
     public FileModel()
     {
-        Name = DefaultName;
-        Format = DefaultFormat;
+        _fileName = DEFAULT_FILE_NAME;
+        _extension = DEFAULT_DATA_EXTENSION;
+        _filePath = "";
+        _isSaved = false;
+        _document = new FlowDocument();
     }
 
-    public FileModel(string path)
+    public FileModel(string filePath, FlowDocument document)
     {
-        _path = path;
-        Name = Path.GetFileName(path);
-        Format = Path.GetExtension(path);
+        _filePath = filePath;
+        _document = document;
+        _fileName = Path.GetFileName(_filePath);
+        _extension = Path.GetExtension(_filePath);
+        _isSaved = true;
     }
 
-    public Stream GetStream(FileMode fileMode, string? path = null)
-    {
-        if (_path == null && path == null)
-            throw new NullReferenceException("You cannot create a Stream with a null path. Update the path or provide it as an argument.");
-        
-        return File.Open(path ?? _path, fileMode);
-    }
-
-    public void UpdatePropertyFromPath(string path)
-    {
-        _path = path;
-        Name = Path.GetFileName(path);
-        Format = Path.GetExtension(path);
-    }
+    public string Title { get => _fileName; set => SetField(ref _fileName, value); }
+    public FlowDocument Document { get => _document; set => SetField(ref _document, value); }
+    public bool IsSaved { get => _isSaved; set => SetField(ref _isSaved, value); }
+    public string FilePath { get => _filePath; set => SetField(ref _filePath, value); }
 }

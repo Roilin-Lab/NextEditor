@@ -1,10 +1,14 @@
-﻿using System.Windows.Documents;
+﻿using NextEditor.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace NextEditor.ViewModels
 {
-    internal interface IDocumentViewModel
+    public interface IDocumentViewModel
     {
-        public string Title { get; set; }
-        public FlowDocument Document { get; }
+        public IDocument Document { get; }
     }
 }
