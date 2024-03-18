@@ -1,4 +1,6 @@
 ﻿using NextEditor.Helpers;
+using NextEditor.Services;
+using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Documents;
@@ -25,13 +27,22 @@ public class FileModel : ObservableObject, IDocument
         _document = new FlowDocument();
     }
 
-    public FileModel(string filePath, FlowDocument document)
+    private FileModel(string filePath, FlowDocument document)
     {
         _filePath = filePath;
         _document = document;
         _fileName = Path.GetFileName(_filePath);
         _extension = Path.GetExtension(_filePath);
         _isSaved = true;
+    }
+
+    public static FileModel CreateDocument(string path)
+    {
+        var doc = new FlowDocument();
+        var textRange = new TextRange(doc.ContentStart, doc.ContentEnd);
+        var stream = FileService.GetStream(path);
+        textRange.Load(stream, SupportExtension.ConvertToDataFormats(Path.GetExtension(path)));
+        return new FileModel(path, doc);
     }
 
     public string Title { get => _fileName; set => SetField(ref _fileName, value); }

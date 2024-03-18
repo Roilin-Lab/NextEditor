@@ -4,38 +4,29 @@ using NextEditor.Helpers;
 
 namespace NextEditor.Utility;
 
-public class FileDialogService
+public static class FileDialogService
 {
-    private FileDialog _dialog;
-    private readonly string _filter;
-
-#pragma warning disable CS8618 // Поле, не допускающее значения NULL, должно содержать значение, отличное от NULL, при выходе из конструктора. Возможно, стоит объявить поле как допускающее значения NULL.
-    public FileDialogService()
-#pragma warning restore CS8618 // Поле, не допускающее значения NULL, должно содержать значение, отличное от NULL, при выходе из конструктора. Возможно, стоит объявить поле как допускающее значения NULL.
+    public static bool ShowDialog(FileMode fileMode, out string? path)
     {
-        _filter = SupportExtension.GetFormatsFilter();
-    }
-
-    public bool ShowDialog(FileMode fileMode, out string? path)
-    {
+        FileDialog dialog;
         switch (fileMode)
         {
             case FileMode.Open:
-                _dialog = new OpenFileDialog();
+                dialog = new OpenFileDialog();
                 break;
             case FileMode.Create:
-                _dialog = new SaveFileDialog();
+                dialog = new SaveFileDialog();
                 break;
             default:
                 throw new ArgumentException($"Supported mod file: Create, Open");
         }
 
-        _dialog.Filter = _filter;
+        dialog.Filter = SupportExtension.GetFormatsFilter();
 
-        if (_dialog.ShowDialog() ?? false)
+        if (dialog.ShowDialog() ?? false)
         {
-            path = _dialog.FileName;
-            _dialog.Reset();
+            path = dialog.FileName;
+            dialog.Reset();
             return true;
         }
 

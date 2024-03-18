@@ -28,12 +28,21 @@ public class MainWindowViewModel : ObservableObject
 
     public void CreateFile()
     {
-        throw new NotImplementedException();
+        var file = new FileViewModel();
+        _files.Add(file);
+        _selectedFile = file;
+        OnPropertyChanged(nameof(SelectedFile));
     }
 
     public void OpenFile()
     {
-        throw new NotImplementedException();
+        if (FileDialogService.ShowDialog(FileMode.Open, out string? path) && path != null)
+        {
+            var file = new FileViewModel(path);
+            _files.Add(file);
+            _selectedFile = file;
+            OnPropertyChanged(nameof(SelectedFile));
+        }
     }
 
     public void SaveAsFile(object parameter)

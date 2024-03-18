@@ -19,10 +19,10 @@ public class FileViewModel : ObservableObject, IDocumentViewModel
 
     public FileViewModel(string path)
     {
-        var doc = new FlowDocument();
-        LoadDocument(ref doc);
-        _fileModel = new FileModel(path, doc);
+        _fileModel = FileModel.CreateDocument(path);
     }
+
+    public void OnTextChanged() => _fileModel.IsSaved = false;
 
     public void Save()
     {
