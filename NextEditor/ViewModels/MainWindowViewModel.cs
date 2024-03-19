@@ -47,12 +47,26 @@ public class MainWindowViewModel : ObservableObject
 
     public void SaveAsFile(object parameter)
     {
-        throw new NotImplementedException();
+        var file = (parameter as FileViewModel)!;
+
+        if (FileDialogService.ShowDialog(FileMode.Create, out string? path) && path != null)
+        {
+            file.Save(path);
+        }
     }
 
     public void SaveFile(object parameter)
     {
-        throw new NotImplementedException();
+        var file = (parameter as FileViewModel)!;
+
+        if (string.IsNullOrEmpty(file.GetPathFile()))
+        {
+            SaveAsFile(file);
+        }
+        else
+        {
+            file.Save();
+        }
     }
 
     public void CloseFile(object parameter)

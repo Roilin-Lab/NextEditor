@@ -1,8 +1,6 @@
 ﻿using NextEditor.Helpers;
 using NextEditor.Services;
-using System.Diagnostics;
 using System.IO;
-using System.Windows;
 using System.Windows.Documents;
 
 namespace NextEditor.Models;
@@ -12,7 +10,7 @@ public class FileModel : ObservableObject, IDocument
     private string _fileName;
     private string _filePath;
     private bool _isSaved;
-    private readonly string _extension;
+    private string _extension;
     private FlowDocument _document;
 
     private const string DEFAULT_FILE_NAME = "New File";
@@ -40,7 +38,7 @@ public class FileModel : ObservableObject, IDocument
     {
         var doc = new FlowDocument();
         var textRange = new TextRange(doc.ContentStart, doc.ContentEnd);
-        var stream = FileService.GetStream(path);
+        var stream = FileService.GetStream(path, FileMode.Open);
         textRange.Load(stream, SupportExtension.ConvertToDataFormats(Path.GetExtension(path)));
         return new FileModel(path, doc);
     }

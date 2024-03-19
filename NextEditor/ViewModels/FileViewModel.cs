@@ -1,8 +1,7 @@
-﻿using System.IO;
-using System.Windows.Documents;
+﻿using System.Windows.Documents;
 using NextEditor.Helpers;
 using NextEditor.Models;
-using NextEditor.Utility;
+using NextEditor.Services;
 
 namespace NextEditor.ViewModels;
 
@@ -24,9 +23,12 @@ public class FileViewModel : ObservableObject, IDocumentViewModel
 
     public void OnTextChanged() => _fileModel.IsSaved = false;
 
-    public void Save()
+    public string GetPathFile() => _fileModel.FilePath;
+
+    public void Save(string? path = null)
     {
-        throw new NotImplementedException();
+        FileService.SaveDocument(_fileModel, path);
     }
+
     public static void LoadDocument(ref FlowDocument document) { throw new NotImplementedException();}
 }
