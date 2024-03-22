@@ -1,8 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using System.IO;
+using System.Windows;
 using System.Windows.Input;
 using NextEditor.Helpers;
-using NextEditor.Models;
 using NextEditor.Utility;
 
 namespace NextEditor.ViewModels;
@@ -10,29 +10,28 @@ namespace NextEditor.ViewModels;
 public class MainWindowViewModel : ObservableObject
 {
     private readonly ObservableCollection<IDocumentViewModel> _files;
-    private FileViewModel _selectedFile;
+    private IDocumentViewModel _selectedDocument;
+    private readonly WelcomeViewModel welcomeDocument = new();
 
     public IEnumerable<IDocumentViewModel> Files => _files;
-    public FileViewModel SelectedFile
+    public IDocumentViewModel SelectedDocument
     {
-        get => _selectedFile;
-        set => SetField(ref _selectedFile, value);
+        get => _selectedDocument;
+        set => SetField(ref _selectedDocument, value);
     }
 
     public MainWindowViewModel()
     {
-        _files = new ObservableCollection<IDocumentViewModel>();
-        var startUpFile = new FileViewModel();
-        _files.Add(startUpFile);
-        _selectedFile = startUpFile;
+        _files = [welcomeDocument];
+        _selectedDocument = welcomeDocument;
     }
 
     public void CreateFile()
     {
         var file = new FileViewModel();
         _files.Add(file);
-        _selectedFile = file;
-        OnPropertyChanged(nameof(SelectedFile));
+        _selectedDocument = file;
+        OnPropertyChanged(nameof(SelectedDocument));
     }
 
     public void OpenFile()
@@ -41,14 +40,16 @@ public class MainWindowViewModel : ObservableObject
         {
             var file = new FileViewModel(path);
             _files.Add(file);
-            _selectedFile = file;
-            OnPropertyChanged(nameof(SelectedFile));
+            _selectedDocument = file;
+            OnPropertyChanged(nameof(SelectedDocument));
         }
     }
 
     public void SaveAsFile(object parameter)
     {
-        var file = (parameter as FileViewModel)!;
+        if (parameter == null) return;
+
+        var file = (parameter as FileViewModel);
 
         if (FileDialogService.ShowDialog(FileMode.Create, out string? path) && path != null)
         {
@@ -58,7 +59,9 @@ public class MainWindowViewModel : ObservableObject
 
     public void SaveFile(object parameter)
     {
-        var file = (parameter as FileViewModel)!;
+        if (parameter is null) return;
+
+        var file = (parameter as FileViewModel);
 
         if (string.IsNullOrEmpty(file.GetPathFile()))
         {
@@ -72,15 +75,19 @@ public class MainWindowViewModel : ObservableObject
 
     public void CloseFile(object parameter)
     {
+        if (parameter == null) return;
 
         if (_files.Count == 1) CreateFile();
-        _files.Remove((parameter as FileViewModel)!);
+
+        _files.Remove(parameter as IDocumentViewModel);
     }
 
-    public ICommand CreateCommand => new RelayCommand(_ => CreateFile());
-    public ICommand OpenCommand => new RelayCommand(_ => OpenFile());
+    public ICommand CreateCommand => new RelayCommand(p => CreateFile());
+    public ICommand OpenCommand => new RelayCommand(p => OpenFile());
     public ICommand CloseCommand => new RelayCommand(CloseFile);
-    public ICommand SaveAsCommand => new RelayCommand(SaveAsFile);
-    public ICommand SaveCommand => new RelayCommand(SaveFile);
+    public ICommand SaveAsCommand => new RelayCommand(SaveAsFile, p => p is FileViewModel);
+    public ICommand SaveCommand => new RelayCommand(SaveFile, p => p is FileViewModel);
+    public ICommand AddWelcomePageCommand => new RelayCommand(p => _files.Add(welcomeDocument), p => !_files.Contains(welcomeDocument));
+    public ICommand ExitCommand => new RelayCommand(p => Application.Current.Shutdown());
 
 }

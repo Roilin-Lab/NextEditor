@@ -5,12 +5,12 @@
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:local="clr-namespace:NextEditor"
 		mc:Ignorable="d"
-		xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
-		Title="Next Editor" Height="450" Width="800">
+
+		Title="Next Editor" Height="450" Width="800" Background="#FFEEF5FD">
 
 	<Window.Resources>
-		<DataTemplate x:Key="ItemTemplate">
-			<StackPanel Orientation="Horizontal">
+        <DataTemplate x:Key="ItemTemplate">
+            <StackPanel Orientation="Horizontal">
 				<TextBlock Text="{Binding Document.Title}" MaxWidth="120" Margin="0,0,5,0"/>
 				<Button BorderBrush="{x:Null}" Background="{x:Null}"
 						Command="{Binding RelativeSource={RelativeSource AncestorType=TabControl}, Path=DataContext.CloseCommand}" CommandParameter="{Binding }">
@@ -20,18 +20,12 @@
 		</DataTemplate>
 
 		<DataTemplate x:Key="ContentTemplate">
-			<local:BindableRichTextBox Document="{Binding Document.Document}" VerticalScrollBarVisibility="Auto">
-                <b:Interaction.Triggers>
-                    <b:EventTrigger EventName="TextChanged">
-                        <b:CallMethodAction TargetObject="{Binding Document}" MethodName="OnTextChanged"></b:CallMethodAction>
-                    </b:EventTrigger>
-                </b:Interaction.Triggers>
-            </local:BindableRichTextBox>
-		</DataTemplate>
+            <ContentControl Content="{Binding}"></ContentControl>
+        </DataTemplate>
 	</Window.Resources>
 	
 	<DockPanel d:IsHidden="True">
-		<StackPanel DockPanel.Dock="Top" Orientation="Vertical" Background="#FFEEF5FD">
+        <StackPanel DockPanel.Dock="Top" Orientation="Vertical" Background="#FFEEF5FD">
 
 			<!-- ~~~~~~~~~~~ ~~~~~~~~~~~ Top Menu ~~~~~~~~~~~ ~~~~~~~~~~~ -->
 
@@ -40,13 +34,16 @@
 					<MenuItem Header="New..." Command="{Binding CreateCommand}"></MenuItem>
 					<MenuItem Header="Open..." Command="{Binding OpenCommand}"></MenuItem>
 					<Separator/>
-					<MenuItem Header="Save..." Command="{Binding SaveCommand}" CommandParameter="{Binding SelectedFile}"></MenuItem>
-					<MenuItem Header="Save As..." Command="{Binding SaveAsCommand}" CommandParameter="{Binding SelectedFile}"></MenuItem>
+                    <MenuItem Header="Save..." Command="{Binding SaveCommand}" CommandParameter="{Binding SelectedDocument}"></MenuItem>
+                    <MenuItem Header="Save As..." Command="{Binding SaveAsCommand}" CommandParameter="{Binding SelectedDocument}"></MenuItem>
 					<Separator/>
-					<MenuItem Header="Exit" ></MenuItem>
+                    <MenuItem Header="Exit" Command="{Binding ExitCommand}"></MenuItem>
 				</MenuItem>
 				<MenuItem Header="Options"></MenuItem>
-				<MenuItem Header="Help"></MenuItem>
+				<MenuItem Header="Help">
+                    <MenuItem Header="Welcome Page" Command="{Binding AddWelcomePageCommand}"></MenuItem>
+                    <MenuItem Header="Help Page" Command=""></MenuItem>
+                </MenuItem>
                 
 			</Menu>
 
@@ -87,8 +84,8 @@
 				</ToolBar>
 			</ToolBarTray>
 		</StackPanel>
-		
-		<StatusBar DockPanel.Dock="Bottom" DataContext="{Binding SelectedFile}">
+
+        <StatusBar DockPanel.Dock="Bottom" Background="#FFEEF5FD" DataContext="{Binding SelectedDocument}">
 			<StatusBarItem>
 				<Label Padding="0" Content="Row 0" />
 			</StatusBarItem>
@@ -97,11 +94,11 @@
 				<Label Padding="0" Content="Col 0" />
 			</StatusBarItem>
             <Separator/>
-            
+
             <TextBlock Text="{Binding Document.IsSaved}"></TextBlock>
 		</StatusBar>
 
-		<TabControl Name="MyTabControl" ItemsSource="{Binding Files}" SelectedItem="{Binding SelectedFile}"
+        <TabControl Name="MyTabControl" ItemsSource="{Binding Files}" SelectedItem="{Binding SelectedDocument}"
 					ContentTemplate="{StaticResource ContentTemplate}" ItemTemplate="{StaticResource ItemTemplate}"/>
 
 	</DockPanel>

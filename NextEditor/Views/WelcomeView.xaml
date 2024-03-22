@@ -1,0 +1,63 @@
+﻿<UserControl x:Class="NextEditor.Views.WelcomeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NextEditor.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="310" d:DesignWidth="700">
+
+    <FlowDocumentScrollViewer VerticalScrollBarVisibility="Hidden">
+        <FlowDocument>
+            <Table>
+                <TableRowGroup>
+                    <TableRow>
+                        <TableCell>
+                            <Section Margin="60 0 0 0">
+                                <Paragraph FontSize="38" Margin="0 0 0 25">Welcome</Paragraph>
+                                <Paragraph FontSize="14" >
+                                    <Image Source="../Assets/page-add.png" Width="18"></Image>
+                                    <Hyperlink FontSize="19">
+                                        New File...
+                                    </Hyperlink>
+                                    <LineBreak/>
+                                    <LineBreak/>
+                                    <Image Source="../Assets/folder_page.png" Width="18"></Image>
+                                    <Hyperlink FontSize="19">
+                                        Open File...
+                                    </Hyperlink>
+                                    <LineBreak/>
+                                    <LineBreak/>
+                                    <Image Source="../Assets/help-icon.png" Width="18"></Image>
+                                    <Hyperlink FontSize="19">
+                                        Help...
+                                    </Hyperlink>
+                                    <LineBreak/>
+                                    <LineBreak/>
+                                    <Image Source="../Assets/door-in-icon.png" Width="18"></Image>
+                                    <Hyperlink FontSize="19">
+                                        Exit...
+                                    </Hyperlink>
+                                </Paragraph>
+                            </Section>
+                        </TableCell>
+                        <TableCell>
+                            <Paragraph FontSize="6">
+                                <Span FontSize="38" FontWeight="Black">Next Editor</Span>
+                                <LineBreak/>
+                                <LineBreak/>
+                                <Span FontSize="14">Больше, чем простой редактор!</Span>
+                            </Paragraph>
+                        </TableCell>
+                    </TableRow>
+                </TableRowGroup>
+            </Table>
+            <Section>
+                
+            </Section>
+            
+
+        </FlowDocument>
+    </FlowDocumentScrollViewer>
+
+</UserControl>

@@ -2,8 +2,16 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:NextEditor"
+             xmlns:views="clr-namespace:NextEditor.Views"
+             xmlns:viewModels="clr-namespace:NextEditor.ViewModels"
+             
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <DataTemplate DataType="{x:Type viewModels:FileViewModel}">
+            <views:FileView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:WelcomeViewModel}">
+            <views:WelcomeView />
+        </DataTemplate>
     </Application.Resources>
 </Application>

@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace NextEditor.Views
 {
     /// <summary>
-    /// Логика взаимодействия для ItemContentView.xaml
+    /// Логика взаимодействия для WelcomeView.xaml
     /// </summary>
-    public partial class ItemContentView : UserControl
+    public partial class WelcomeView : UserControl
     {
-        public ItemContentView()
+        public WelcomeView()
         {
             InitializeComponent();
         }
