@@ -9,7 +9,19 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
-    <Grid>
+    <DockPanel>
+        <StatusBar DockPanel.Dock="Bottom" Background="#FFEEF5FD">
+            <StatusBarItem>
+                <Label Padding="0" Content="Row 0" />
+            </StatusBarItem>
+            <Separator/>
+            <StatusBarItem>
+                <Label Padding="0" Content="Col 0" />
+            </StatusBarItem>
+            <Separator/>
+
+            <TextBlock Text="{Binding Document.IsSaved}"></TextBlock>
+        </StatusBar>
         <controls:BindableRichTextBox Document="{Binding Document.Document}" VerticalScrollBarVisibility="Auto">
             <b:Interaction.Triggers>
                 <b:EventTrigger EventName="TextChanged">
@@ -17,6 +29,7 @@
                 </b:EventTrigger>
             </b:Interaction.Triggers>
         </controls:BindableRichTextBox>
-    </Grid>
+        
+    </DockPanel>
 
 </UserControl>

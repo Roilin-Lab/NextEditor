@@ -27,76 +27,63 @@
 	<DockPanel d:IsHidden="True">
         <StackPanel DockPanel.Dock="Top" Orientation="Vertical" Background="#FFEEF5FD">
 
-			<!-- ~~~~~~~~~~~ ~~~~~~~~~~~ Top Menu ~~~~~~~~~~~ ~~~~~~~~~~~ -->
+            <!-- ~~~~~~~~~~~ ~~~~~~~~~~~ Top Menu ~~~~~~~~~~~ ~~~~~~~~~~~ -->
 
-			<Menu DockPanel.Dock="Top" Margin="3" Background="#FFEEF5FD">
-				<MenuItem Header="File">
-					<MenuItem Header="New..." Command="{Binding CreateCommand}"></MenuItem>
-					<MenuItem Header="Open..." Command="{Binding OpenCommand}"></MenuItem>
-					<Separator/>
+            <Menu DockPanel.Dock="Top" Margin="3" Background="#FFEEF5FD">
+                <MenuItem Header="File">
+                    <MenuItem Header="New..." Command="{Binding CreateCommand}"></MenuItem>
+                    <MenuItem Header="Open..." Command="{Binding OpenCommand}"></MenuItem>
+                    <Separator/>
                     <MenuItem Header="Save..." Command="{Binding SaveCommand}" CommandParameter="{Binding SelectedDocument}"></MenuItem>
                     <MenuItem Header="Save As..." Command="{Binding SaveAsCommand}" CommandParameter="{Binding SelectedDocument}"></MenuItem>
-					<Separator/>
+                    <Separator/>
                     <MenuItem Header="Exit" Command="{Binding ExitCommand}"></MenuItem>
-				</MenuItem>
-				<MenuItem Header="Options"></MenuItem>
-				<MenuItem Header="Help">
+                </MenuItem>
+                <MenuItem Header="Options"></MenuItem>
+                <MenuItem Header="Help">
                     <MenuItem Header="Welcome Page" Command="{Binding AddWelcomePageCommand}"></MenuItem>
                     <MenuItem Header="Help Page" Command=""></MenuItem>
                 </MenuItem>
-                
-			</Menu>
 
-			<!-- ~~~~~~~~~~~ ~~~~~~~~~~~ Tool Bar ~~~~~~~~~~~ ~~~~~~~~~~~ -->
+            </Menu>
 
-			<ToolBarTray>
-				<ToolBar Header="Правка:">
-					<Button Command="Copy">
-						<Image Source="Assets/page_copy.png"/>
-					</Button>
+            <!-- ~~~~~~~~~~~ ~~~~~~~~~~~ Tool Bar ~~~~~~~~~~~ ~~~~~~~~~~~ -->
+
+            <ToolBarTray>
+                <ToolBar Header="Правка:">
+                    <Button Command="Copy">
+                        <Image Source="Assets/page_copy.png"/>
+                    </Button>
                     <Button Command="Paste">
-						<Image Source="Assets/page_paste.png"/>
-					</Button>
-					<Button Command="Cut">
-						<Image Source="Assets/cut.png"/>
-					</Button>
-					<Separator/>
-					<Button Command="Undo">
-						<Image Source="Assets/arrow_undo.png"/>
-					</Button>
-					<Button Command="Redo">
-						<Image Source="Assets/arrow_redo.png"/>
-					</Button>
-				</ToolBar>
-				<ToolBar Header="Шрифт:">
-					<ToggleButton Command="ToggleBold">
-						<Image Source="Assets/text_bold.png"/>
-					</ToggleButton>
-					<Button Command="ToggleItalic">
-						<Image Source="Assets/text_italic.png"/>
-					</Button>
-					<Button Command="ToggleUnderline">
-						<Image Source="Assets/text_underline.png"/>
-					</Button>
-					<Button Command="ToggleSubscript">
-						<Image Source="Assets/text_strikethrough.png"/>
-					</Button>
-				</ToolBar>
-			</ToolBarTray>
-		</StackPanel>
-
-        <StatusBar DockPanel.Dock="Bottom" Background="#FFEEF5FD" DataContext="{Binding SelectedDocument}">
-			<StatusBarItem>
-				<Label Padding="0" Content="Row 0" />
-			</StatusBarItem>
-            <Separator/>
-            <StatusBarItem>
-				<Label Padding="0" Content="Col 0" />
-			</StatusBarItem>
-            <Separator/>
-
-            <TextBlock Text="{Binding Document.IsSaved}"></TextBlock>
-		</StatusBar>
+                        <Image Source="Assets/page_paste.png"/>
+                    </Button>
+                    <Button Command="Cut">
+                        <Image Source="Assets/cut.png"/>
+                    </Button>
+                    <Separator/>
+                    <Button Command="Undo">
+                        <Image Source="Assets/arrow_undo.png"/>
+                    </Button>
+                    <Button Command="Redo">
+                        <Image Source="Assets/arrow_redo.png"/>
+                    </Button>
+                </ToolBar>
+                <ToolBar Header="Шрифт:">
+                    <ToggleButton Command="ToggleBold">
+                        <Image Source="Assets/text_bold.png"/>
+                    </ToggleButton>
+                    <Button Command="ToggleItalic">
+                        <Image Source="Assets/text_italic.png"/>
+                    </Button>
+                    <Button Command="ToggleUnderline">
+                        <Image Source="Assets/text_underline.png"/>
+                    </Button>
+                    <Button Command="ToggleSubscript">
+                        <Image Source="Assets/text_strikethrough.png"/>
+                    </Button>
+                </ToolBar>
+            </ToolBarTray>
+        </StackPanel>
 
         <TabControl Name="MyTabControl" ItemsSource="{Binding Files}" SelectedItem="{Binding SelectedDocument}"
 					ContentTemplate="{StaticResource ContentTemplate}" ItemTemplate="{StaticResource ItemTemplate}"/>
