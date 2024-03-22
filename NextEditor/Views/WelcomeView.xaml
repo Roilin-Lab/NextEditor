@@ -17,13 +17,13 @@
                                 <Paragraph FontSize="38" Margin="0 0 0 25">Welcome</Paragraph>
                                 <Paragraph FontSize="14" >
                                     <Image Source="../Assets/page-add.png" Width="18"></Image>
-                                    <Hyperlink FontSize="19">
+                                    <Hyperlink FontSize="19" Command="{Binding RelativeSource={RelativeSource AncestorType=TabControl}, Path=DataContext.CreateCommand}">
                                         New File...
                                     </Hyperlink>
                                     <LineBreak/>
                                     <LineBreak/>
                                     <Image Source="../Assets/folder_page.png" Width="18"></Image>
-                                    <Hyperlink FontSize="19">
+                                    <Hyperlink FontSize="19" Command="{Binding RelativeSource={RelativeSource AncestorType=TabControl}, Path=DataContext.OpenCommand}">
                                         Open File...
                                     </Hyperlink>
                                     <LineBreak/>
@@ -35,7 +35,7 @@
                                     <LineBreak/>
                                     <LineBreak/>
                                     <Image Source="../Assets/door-in-icon.png" Width="18"></Image>
-                                    <Hyperlink FontSize="19">
+                                    <Hyperlink FontSize="19" Command="{Binding RelativeSource={RelativeSource AncestorType=TabControl}, Path=DataContext.ExitCommand}">
                                         Exit...
                                     </Hyperlink>
                                 </Paragraph>
