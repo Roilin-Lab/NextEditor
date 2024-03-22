@@ -24,9 +24,7 @@ namespace NextEditor.Services
             var stream = GetStream(filePath, FileMode.Create);
             textRange.Save(stream, SupportExtension.ConvertToDataFormats(Path.GetExtension(filePath)));
 
-            fileModel.Title = Path.GetFileName(filePath);
-            fileModel.FilePath = filePath;
-            fileModel.IsSaved = true;
+            fileModel.UpdateFileWhenSaved(filePath);
             stream.Close();
         }
     }

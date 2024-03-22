@@ -4,7 +4,7 @@ namespace NextEditor.Models
 {
     public interface IDocument
     {
-        string Title { get; set; }
-        FlowDocument Document { get; set; }
+        string Title { get; }
+        FlowDocument Document { get; }
     }
 }

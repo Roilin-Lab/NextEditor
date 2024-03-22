@@ -21,8 +21,6 @@ public class FileViewModel : ObservableObject, IDocumentViewModel
         _fileModel = FileModel.CreateDocument(path);
     }
 
-    public void OnTextChanged() => _fileModel.IsSaved = false;
-
     public string GetPathFile() => _fileModel.FilePath;
 
     public void Save(string? path = null)

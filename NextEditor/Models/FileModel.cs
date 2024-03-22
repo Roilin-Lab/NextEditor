@@ -43,8 +43,19 @@ public class FileModel : ObservableObject, IDocument
         return new FileModel(path, doc);
     }
 
-    public string Title { get => _fileName; set => SetField(ref _fileName, value); }
-    public FlowDocument Document { get => _document; set => SetField(ref _document, value); }
-    public bool IsSaved { get => _isSaved; set => SetField(ref _isSaved, value); }
-    public string FilePath { get => _filePath; set => SetField(ref _filePath, value); }
+    public void UpdateFileWhenSaved(string path)
+    {
+        FilePath = path;
+        Title = Path.GetFileName(path);
+        Extension = Path.GetExtension(path);
+        IsSaved = true;
+    }
+
+    public void OnTextChanged() => IsSaved = false;
+
+    public string Title { get => _fileName; private set => SetField(ref _fileName, value); }
+    public FlowDocument Document { get => _document; private set => SetField(ref _document, value); }
+    public bool IsSaved { get => _isSaved; private set => SetField(ref _isSaved, value); }
+    public string FilePath { get => _filePath; private set => SetField(ref _filePath, value); }
+    public string Extension { get => _extension; private set  => SetField(ref _extension, value);}
 }

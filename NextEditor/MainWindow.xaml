@@ -6,7 +6,7 @@
 		xmlns:local="clr-namespace:NextEditor"
 		mc:Ignorable="d"
 		xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
-		Title="MainWindow" Height="450" Width="800">
+		Title="Next Editor" Height="450" Width="800">
 
 	<Window.Resources>
 		<DataTemplate x:Key="ItemTemplate">
@@ -23,7 +23,7 @@
 			<local:BindableRichTextBox Document="{Binding Document.Document}" VerticalScrollBarVisibility="Auto">
                 <b:Interaction.Triggers>
                     <b:EventTrigger EventName="TextChanged">
-                        <b:CallMethodAction TargetObject="{Binding}" MethodName="OnTextChanged"></b:CallMethodAction>
+                        <b:CallMethodAction TargetObject="{Binding Document}" MethodName="OnTextChanged"></b:CallMethodAction>
                     </b:EventTrigger>
                 </b:Interaction.Triggers>
             </local:BindableRichTextBox>
@@ -47,19 +47,20 @@
 				</MenuItem>
 				<MenuItem Header="Options"></MenuItem>
 				<MenuItem Header="Help"></MenuItem>
+                
 			</Menu>
 
 			<!-- ~~~~~~~~~~~ ~~~~~~~~~~~ Tool Bar ~~~~~~~~~~~ ~~~~~~~~~~~ -->
 
 			<ToolBarTray>
 				<ToolBar Header="Правка:">
-					<Button>
+					<Button Command="Copy">
 						<Image Source="Assets/page_copy.png"/>
 					</Button>
-					<Button>
+                    <Button Command="Paste">
 						<Image Source="Assets/page_paste.png"/>
 					</Button>
-					<Button>
+					<Button Command="Cut">
 						<Image Source="Assets/cut.png"/>
 					</Button>
 					<Separator/>
@@ -86,7 +87,7 @@
 				</ToolBar>
 			</ToolBarTray>
 		</StackPanel>
-
+		
 		<StatusBar DockPanel.Dock="Bottom" DataContext="{Binding SelectedFile}">
 			<StatusBarItem>
 				<Label Padding="0" Content="Row 0" />
@@ -96,6 +97,7 @@
 				<Label Padding="0" Content="Col 0" />
 			</StatusBarItem>
             <Separator/>
+            
             <TextBlock Text="{Binding Document.IsSaved}"></TextBlock>
 		</StatusBar>
 
