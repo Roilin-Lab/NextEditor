@@ -2,16 +2,17 @@
 using System.IO;
 using System.Windows.Input;
 using NextEditor.Helpers;
+using NextEditor.Models;
 using NextEditor.Utility;
 
 namespace NextEditor.ViewModels;
 
 public class MainWindowViewModel : ObservableObject
 {
-    private readonly ObservableCollection<FileViewModel> _files;
+    private readonly ObservableCollection<IDocumentViewModel> _files;
     private FileViewModel _selectedFile;
 
-    public ObservableCollection<FileViewModel> Files => _files;
+    public IEnumerable<IDocumentViewModel> Files => _files;
     public FileViewModel SelectedFile
     {
         get => _selectedFile;
@@ -20,7 +21,7 @@ public class MainWindowViewModel : ObservableObject
 
     public MainWindowViewModel()
     {
-        _files = new ObservableCollection<FileViewModel>();
+        _files = new ObservableCollection<IDocumentViewModel>();
         var startUpFile = new FileViewModel();
         _files.Add(startUpFile);
         _selectedFile = startUpFile;
