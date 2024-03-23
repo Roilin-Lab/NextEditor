@@ -6,7 +6,7 @@ namespace NextEditor.Utility;
 
 public static class FileDialogService
 {
-    public static bool ShowDialog(FileMode fileMode, out string? path)
+    public static bool ShowDialog(FileMode fileMode, out string? path, string? fileName = null)
     {
         FileDialog dialog;
         switch (fileMode)
@@ -16,6 +16,7 @@ public static class FileDialogService
                 break;
             case FileMode.Create:
                 dialog = new SaveFileDialog();
+                dialog.FileName = fileName ?? "";
                 break;
             default:
                 throw new ArgumentException($"Supported mod file: Create, Open");

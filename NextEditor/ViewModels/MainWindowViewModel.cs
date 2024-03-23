@@ -51,7 +51,7 @@ public class MainWindowViewModel : ObservableObject
 
         var file = (parameter as FileViewModel);
 
-        if (FileDialogService.ShowDialog(FileMode.Create, out string? path) && path != null)
+        if (FileDialogService.ShowDialog(FileMode.Create, out string? path, file.Document.Title) && path != null)
         {
             file.Save(path);
         }

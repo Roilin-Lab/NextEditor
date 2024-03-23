@@ -25,7 +25,7 @@
         <controls:BindableRichTextBox Document="{Binding Document.Document}" VerticalScrollBarVisibility="Auto">
             <b:Interaction.Triggers>
                 <b:EventTrigger EventName="TextChanged">
-                    <b:CallMethodAction TargetObject="{Binding Document}" MethodName="OnTextChanged"></b:CallMethodAction>
+                    <b:CallMethodAction TargetObject="{Binding}" MethodName="OnTextChanged"/>
                 </b:EventTrigger>
             </b:Interaction.Triggers>
         </controls:BindableRichTextBox>

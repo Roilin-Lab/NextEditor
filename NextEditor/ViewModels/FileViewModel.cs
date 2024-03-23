@@ -1,4 +1,4 @@
-﻿using System.Windows.Documents;
+﻿using System.Windows.Controls;
 using NextEditor.Helpers;
 using NextEditor.Models;
 using NextEditor.Services;
@@ -23,10 +23,17 @@ public class FileViewModel : ObservableObject, IDocumentViewModel
 
     public string GetPathFile() => _fileModel.FilePath;
 
+    public void OnTextChanged(object sender, TextChangedEventArgs e)
+    {
+        if (e.Changes.Any())
+        {
+            _fileModel.OnTextChanged();
+        }
+    }
+
     public void Save(string? path = null)
     {
         FileService.SaveDocument(_fileModel, path);
     }
 
-    public static void LoadDocument(ref FlowDocument document) { throw new NotImplementedException();}
 }

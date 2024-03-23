@@ -6,7 +6,7 @@
 		xmlns:local="clr-namespace:NextEditor"
 		mc:Ignorable="d"
 
-		Title="Next Editor" Height="450" Width="800" Background="#FFEEF5FD">
+		Title="Next Editor" Height="450" Width="800" Background="#FFE4EAF1">
 
 	<Window.Resources>
         <DataTemplate x:Key="ItemTemplate">
@@ -14,7 +14,7 @@
 				<TextBlock Text="{Binding Document.Title}" MaxWidth="120" Margin="0,0,5,0"/>
 				<Button BorderBrush="{x:Null}" Background="{x:Null}"
 						Command="{Binding RelativeSource={RelativeSource AncestorType=TabControl}, Path=DataContext.CloseCommand}" CommandParameter="{Binding }">
-					<Image Source="Assets/cancel.png"></Image>
+					<Image Source="Assets/cross-icon.png"></Image>
 				</Button>
 			</StackPanel>
 		</DataTemplate>
@@ -25,11 +25,11 @@
 	</Window.Resources>
 	
 	<DockPanel d:IsHidden="True">
-        <StackPanel DockPanel.Dock="Top" Orientation="Vertical" Background="#FFEEF5FD">
+        <StackPanel DockPanel.Dock="Top" Orientation="Vertical">
 
             <!-- ~~~~~~~~~~~ ~~~~~~~~~~~ Top Menu ~~~~~~~~~~~ ~~~~~~~~~~~ -->
 
-            <Menu DockPanel.Dock="Top" Margin="3" Background="#FFEEF5FD">
+            <Menu DockPanel.Dock="Top" Padding="4" Background="#FFEEF5FD">
                 <MenuItem Header="File">
                     <MenuItem Header="New..." Command="{Binding CreateCommand}"></MenuItem>
                     <MenuItem Header="Open..." Command="{Binding OpenCommand}"></MenuItem>
@@ -44,12 +44,26 @@
                     <MenuItem Header="Welcome Page" Command="{Binding AddWelcomePageCommand}"></MenuItem>
                     <MenuItem Header="Help Page" Command=""></MenuItem>
                 </MenuItem>
-
             </Menu>
-
+            <Line Height="2"></Line>
             <!-- ~~~~~~~~~~~ ~~~~~~~~~~~ Tool Bar ~~~~~~~~~~~ ~~~~~~~~~~~ -->
 
             <ToolBarTray>
+                <ToolBar>
+                    <Button Command="{Binding CreateCommand}">
+                        <Image Source="Assets/page-add.png"/>
+                    </Button>
+                    <Button Command="{Binding OpenCommand}">
+                        <Image Source="Assets/folder_page.png"/>
+                    </Button>
+                    <Separator/>
+                    <Button Command="{Binding SaveCommand}" CommandParameter="{Binding SelectedDocument}">
+                        <Image Source="Assets/disk.png"/>
+                    </Button>
+                    <Button Command="{Binding SaveAsCommand}" CommandParameter="{Binding SelectedDocument}">
+                        <Image Source="Assets/disk-multiple.png"/>
+                    </Button>
+                </ToolBar>
                 <ToolBar Header="Правка:">
                     <Button Command="Copy">
                         <Image Source="Assets/page_copy.png"/>
@@ -69,9 +83,9 @@
                     </Button>
                 </ToolBar>
                 <ToolBar Header="Шрифт:">
-                    <ToggleButton Command="ToggleBold">
+                    <Button Command="ToggleBold">
                         <Image Source="Assets/text_bold.png"/>
-                    </ToggleButton>
+                    </Button>
                     <Button Command="ToggleItalic">
                         <Image Source="Assets/text_italic.png"/>
                     </Button>
