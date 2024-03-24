@@ -28,6 +28,8 @@ public class MainWindowViewModel : ObservableObject
 
     public void CreateFile()
     {
+        if (SelectedDocument is WelcomeViewModel) _files.Remove(welcomeDocument);
+
         var file = new FileViewModel();
         _files.Add(file);
         _selectedDocument = file;
@@ -38,6 +40,8 @@ public class MainWindowViewModel : ObservableObject
     {
         if (FileDialogService.ShowDialog(FileMode.Open, out string? path) && path != null)
         {
+            if (SelectedDocument is WelcomeViewModel) _files.Remove(welcomeDocument);
+
             var file = new FileViewModel(path);
             _files.Add(file);
             _selectedDocument = file;

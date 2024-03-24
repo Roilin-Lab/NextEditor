@@ -14,7 +14,7 @@
 				<TextBlock Text="{Binding Document.Title}" MaxWidth="120" Margin="0,0,5,0"/>
 				<Button BorderBrush="{x:Null}" Background="{x:Null}"
 						Command="{Binding RelativeSource={RelativeSource AncestorType=TabControl}, Path=DataContext.CloseCommand}" CommandParameter="{Binding }">
-					<Image Source="Assets/cross-icon.png"></Image>
+					<Image Source="Assets/cross-icon.png" Width="14"></Image>
 				</Button>
 			</StackPanel>
 		</DataTemplate>
@@ -29,7 +29,7 @@
 
             <!-- ~~~~~~~~~~~ ~~~~~~~~~~~ Top Menu ~~~~~~~~~~~ ~~~~~~~~~~~ -->
 
-            <Menu DockPanel.Dock="Top" Padding="4" Background="#FFEEF5FD">
+            <Menu DockPanel.Dock="Top" Padding="4" Background="#F1F3F9">
                 <MenuItem Header="File">
                     <MenuItem Header="New..." Command="{Binding CreateCommand}"></MenuItem>
                     <MenuItem Header="Open..." Command="{Binding OpenCommand}"></MenuItem>
@@ -48,8 +48,8 @@
             <Line Height="2"></Line>
             <!-- ~~~~~~~~~~~ ~~~~~~~~~~~ Tool Bar ~~~~~~~~~~~ ~~~~~~~~~~~ -->
 
-            <ToolBarTray>
-                <ToolBar>
+            <ToolBarTray Background="#F1F3F9">
+                <ToolBar Background="#F1F3F9">
                     <Button Command="{Binding CreateCommand}">
                         <Image Source="Assets/page-add.png"/>
                     </Button>
@@ -64,7 +64,7 @@
                         <Image Source="Assets/disk-multiple.png"/>
                     </Button>
                 </ToolBar>
-                <ToolBar Header="Правка:">
+                <ToolBar Background="#F1F3F9">
                     <Button Command="Copy">
                         <Image Source="Assets/page_copy.png"/>
                     </Button>
@@ -82,7 +82,7 @@
                         <Image Source="Assets/arrow_redo.png"/>
                     </Button>
                 </ToolBar>
-                <ToolBar Header="Шрифт:">
+                <ToolBar Background="#F1F3F9">
                     <Button Command="ToggleBold">
                         <Image Source="Assets/text_bold.png"/>
                     </Button>
