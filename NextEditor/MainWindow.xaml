@@ -8,44 +8,46 @@
 
 		Title="Next Editor" Height="450" Width="800" Background="#FFE4EAF1">
 
-	<Window.Resources>
+    <Window.Resources>
         <DataTemplate x:Key="ItemTemplate">
             <StackPanel Orientation="Horizontal">
-				<TextBlock Text="{Binding Document.Title}" MaxWidth="120" Margin="0,0,5,0"/>
-				<Button BorderBrush="{x:Null}" Background="{x:Null}"
+                <TextBlock Text="{Binding Document.Title}" MaxWidth="120" Margin="0,0,5,0"/>
+                <Button BorderBrush="{x:Null}" Background="{x:Null}"
 						Command="{Binding RelativeSource={RelativeSource AncestorType=TabControl}, Path=DataContext.CloseCommand}" CommandParameter="{Binding }">
-					<Image Source="Assets/cross-icon.png" Width="14"></Image>
-				</Button>
-			</StackPanel>
-		</DataTemplate>
+                    <Image Source="Assets/cross-icon.png" Width="14"></Image>
+                </Button>
+            </StackPanel>
+        </DataTemplate>
 
-		<DataTemplate x:Key="ContentTemplate">
+        <DataTemplate x:Key="ContentTemplate">
             <ContentControl Content="{Binding}"></ContentControl>
         </DataTemplate>
-	</Window.Resources>
-	
-	<DockPanel d:IsHidden="True">
+    </Window.Resources>
+
+    <DockPanel>
         <StackPanel DockPanel.Dock="Top" Orientation="Vertical">
 
             <!-- ~~~~~~~~~~~ ~~~~~~~~~~~ Top Menu ~~~~~~~~~~~ ~~~~~~~~~~~ -->
 
             <Menu DockPanel.Dock="Top" Padding="4" Background="#F1F3F9">
                 <MenuItem Header="File">
-                    <MenuItem Header="New..." Command="{Binding CreateCommand}"></MenuItem>
-                    <MenuItem Header="Open..." Command="{Binding OpenCommand}"></MenuItem>
+                    <MenuItem Header="New..." Command="{Binding CreateCommand}"/>
+                    <MenuItem Header="Open..." Command="{Binding OpenCommand}"/>
                     <Separator/>
-                    <MenuItem Header="Save..." Command="{Binding SaveCommand}" CommandParameter="{Binding SelectedDocument}"></MenuItem>
-                    <MenuItem Header="Save As..." Command="{Binding SaveAsCommand}" CommandParameter="{Binding SelectedDocument}"></MenuItem>
+                    <MenuItem Header="Save..." Command="{Binding SaveCommand}" CommandParameter="{Binding SelectedDocument}"/>
+                    <MenuItem Header="Save As..." Command="{Binding SaveAsCommand}" CommandParameter="{Binding SelectedDocument}"/>
                     <Separator/>
-                    <MenuItem Header="Exit" Command="{Binding ExitCommand}"></MenuItem>
+                    <MenuItem Header="Exit" Command="{Binding ExitCommand}"/>
                 </MenuItem>
-                <MenuItem Header="Options"></MenuItem>
+                <MenuItem Header="Options"/>
                 <MenuItem Header="Help">
-                    <MenuItem Header="Welcome Page" Command="{Binding AddWelcomePageCommand}"></MenuItem>
-                    <MenuItem Header="Help Page" Command=""></MenuItem>
+                    <MenuItem Header="Welcome Page" Command="{Binding AddWelcomePageCommand}"/>
+                    <MenuItem Header="Help Page" Command=""/>
                 </MenuItem>
             </Menu>
-            <Line Height="2"></Line>
+
+            <Line Height="2"/>
+
             <!-- ~~~~~~~~~~~ ~~~~~~~~~~~ Tool Bar ~~~~~~~~~~~ ~~~~~~~~~~~ -->
 
             <ToolBarTray Background="#F1F3F9">
@@ -81,6 +83,13 @@
                     <Button Command="Redo">
                         <Image Source="Assets/arrow_redo.png"/>
                     </Button>
+                    <Separator/>
+                    <Button Command="Find">
+                        <Image Source="Assets\find-icon.png"/>
+                    </Button>
+                    <Button Command="Replace">
+                        <Image Source="Assets\text-replace-icon.png"/>
+                    </Button>
                 </ToolBar>
                 <ToolBar Background="#F1F3F9">
                     <Button Command="ToggleBold">
@@ -97,11 +106,14 @@
                     </Button>
                 </ToolBar>
             </ToolBarTray>
+
+
+
         </StackPanel>
 
         <TabControl Name="MyTabControl" ItemsSource="{Binding Files}" SelectedItem="{Binding SelectedDocument}"
 					ContentTemplate="{StaticResource ContentTemplate}" ItemTemplate="{StaticResource ItemTemplate}"/>
 
-	</DockPanel>
-	
+    </DockPanel>
+
 </Window>

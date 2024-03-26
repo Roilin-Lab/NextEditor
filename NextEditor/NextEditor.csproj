@@ -18,6 +18,7 @@
     <None Remove="Assets\disk-multiple.png" />
     <None Remove="Assets\disk.png" />
     <None Remove="Assets\door-in-icon.png" />
+    <None Remove="Assets\find-icon.png" />
     <None Remove="Assets\folder_page.png" />
     <None Remove="Assets\help-icon.png" />
     <None Remove="Assets\magnifier-icon.png" />
@@ -53,6 +54,7 @@
     <Resource Include="Assets\disk-multiple.png" />
     <Resource Include="Assets\disk.png" />
     <Resource Include="Assets\door-in-icon.png" />
+    <Resource Include="Assets\find-icon.png" />
     <Resource Include="Assets\folder_page.png" />
     <Resource Include="Assets\help-icon.png" />
     <Resource Include="Assets\magnifier-icon.png" />
