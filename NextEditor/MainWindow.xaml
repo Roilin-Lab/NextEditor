@@ -84,11 +84,8 @@
                         <Image Source="Assets/arrow_redo.png"/>
                     </Button>
                     <Separator/>
-                    <Button Command="Find">
+                    <Button Command="{Binding ShowFindAndReplaceCommand}" CommandParameter="{Binding SelectedDocument}">
                         <Image Source="Assets\find-icon.png"/>
-                    </Button>
-                    <Button Command="Replace">
-                        <Image Source="Assets\text-replace-icon.png"/>
                     </Button>
                 </ToolBar>
                 <ToolBar Background="#F1F3F9">

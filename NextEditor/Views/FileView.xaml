@@ -4,11 +4,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:NextEditor"
+
              xmlns:controls="clr-namespace:NextEditor"
              xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="700">
 
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibility" x:Name="btv"/>
+    </UserControl.Resources>
+    
     <DockPanel>
         <StatusBar DockPanel.Dock="Bottom" Background="#F1F3F9">
             <StatusBarItem>
@@ -32,7 +37,9 @@
                 <RowDefinition Height="3*"/>
                 <RowDefinition Height="2*" MaxHeight="125" MinHeight="55"/>
             </Grid.RowDefinitions>
-            <Grid Grid.Column="1" Grid.Row="1" Panel.ZIndex="10" Margin="7">
+
+            <Grid Grid.Column="1" Grid.Row="1" Panel.ZIndex="10" Margin="7"
+                  Visibility="{Binding IsVisibleFindAndReplace, Converter={StaticResource BoolToVisibility}, FallbackValue=Collapsed}">
                 <Border BorderThickness="1 5 1 1" BorderBrush="LightGray" >
                     <Grid Background="#FFE4EAF1">
                         <Grid.ColumnDefinitions>
@@ -51,7 +58,8 @@
                         <Image Source="../Assets/text-replace-icon.png" Width="14" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center"/>
                         <TextBox Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Text="Replace..."></TextBox>
 
-                        <Button Grid.Column="2" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top" BorderBrush="LightGray" Background="LightGray" Margin="0,-4,0,0">
+                        <Button Grid.Column="2" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top" BorderBrush="LightGray" Background="LightGray" Margin="0,-4,0,0"
+                                Command="{Binding CloseFindAndReplaceCommand}">
                             <Image Source="../Assets/cross-icon.png" Width="16"/>
                         </Button>
                         <Grid Grid.Row="2" Grid.ColumnSpan="2" Margin="0 0 -5 0" >

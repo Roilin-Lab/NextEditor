@@ -86,6 +86,12 @@ public class MainWindowViewModel : ObservableObject
         _files.Remove(parameter as IDocumentViewModel);
     }
 
+    public void ShowFindAndReplace(object parameter)
+    {
+        var file = (parameter as FileViewModel);
+        file.IsVisibleFindAndReplace = true;
+    }
+
     public ICommand CreateCommand => new RelayCommand(p => CreateFile());
     public ICommand OpenCommand => new RelayCommand(p => OpenFile());
     public ICommand CloseCommand => new RelayCommand(CloseFile);
@@ -93,5 +99,5 @@ public class MainWindowViewModel : ObservableObject
     public ICommand SaveCommand => new RelayCommand(SaveFile, p => p is FileViewModel);
     public ICommand AddWelcomePageCommand => new RelayCommand(p => _files.Add(welcomeDocument), p => !_files.Contains(welcomeDocument));
     public ICommand ExitCommand => new RelayCommand(p => Application.Current.Shutdown());
-
+    public ICommand ShowFindAndReplaceCommand => new RelayCommand(ShowFindAndReplace, p => p is FileViewModel);
 }
