@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Runtime.CompilerServices;
+using System.Windows.Controls;
 using System.Windows.Input;
 using NextEditor.Helpers;
 using NextEditor.Models;
@@ -10,9 +11,8 @@ public class FileViewModel : ObservableObject, IDocumentViewModel
 {
     private FileModel _fileModel;
     private bool _isVisibleFindAndReplace = false;
-
-    public IDocument Document => _fileModel;
-    public bool IsVisibleFindAndReplace { get => _isVisibleFindAndReplace; set => SetField(ref _isVisibleFindAndReplace, value); }
+    private string _findText = string.Empty;
+    private string _replaceText = string.Empty;
 
     public FileViewModel()
     {
@@ -41,8 +41,14 @@ public class FileViewModel : ObservableObject, IDocumentViewModel
 
     private void CloseFindAndReplace()
     {
-        IsVisible = false;
+        IsVisibleFindAndReplace = false;
     }
 
     public ICommand CloseFindAndReplaceCommand => new RelayCommand(p => CloseFindAndReplace());
+
+    public IDocument Document => _fileModel;
+    public bool IsVisibleFindAndReplace { get => _isVisibleFindAndReplace; set => SetField(ref _isVisibleFindAndReplace, value); }
+
+    public string FindText { get => _findText; set => SetField(ref _findText, value); }
+    public string ReplaceText { get => _replaceText; set => SetField(ref _replaceText, value); }
 }
